@@ -31,6 +31,7 @@ $$
 $$
 L_{uu} \triangleq \frac{\partial^2L}{\partial u^2}
 $$
+
 ----
 ### **Example 1.1-1. Quadractic Surfaces**
 
@@ -195,9 +196,11 @@ so $(3,-2)$ is a **constrained minimum**.
 ### **2.1 Solution of the General Discrete-Time Optimization Problem**
 
 * The nonlinear **discrete-time system** is
+
 $$
 x_{k+1}=f^k(x_k,u_k)
 $$
+
 where $x_k$ is the **state vector** and $u_k$ is the **control vector**.
 
 * The **performance index** over the time interval $[i,N]$ is
@@ -212,20 +215,15 @@ The objective is to find the control sequence $u_k^*$ that minimizes $J_i$ while
 
 * Introduce the **Lagrange multiplier (costate)** $\lambda_{k+1}$ and define the **Hamiltonian**
 
+
 $$
-H^k(x_k,u_k)
-=
-L^k(x_k,u_k)+\lambda_{k+1}^T f^k(x_k,u_k)
+H^k(x_k,u_k)=L^k(x_k,u_k)+\lambda_{k+1}^T f^k(x_k,u_k)
 $$
 
 * **State equation**
 
 $$
-x_{k+1}
-=
-\frac{\partial H^k}{\partial \lambda_{k+1}}
-=
-f^k(x_k,u_k)
+x_{k+1}=\frac{\partial H^k}{\partial \lambda_{k+1}}=f^k(x_k,u_k)
 $$
 
 The state equation develops **forward in time**.
@@ -233,12 +231,8 @@ The state equation develops **forward in time**.
 * **Costate equation**
 
 $$
-\lambda_k
-=
-\frac{\partial H^k}{\partial x_k}
-=
-\left(\frac{\partial f^k}{\partial x_k}\right)^T\lambda_{k+1}
-+
+\lambda_k=\frac{\partial H^k}{\partial x_k}=
+\left(\frac{\partial f^k}{\partial x_k}\right)^T\lambda_{k+1}+
 \frac{\partial L^k}{\partial x_k}
 $$
 
@@ -247,13 +241,8 @@ The costate equation develops **backward in time**.
 * **Stationarity condition**
 
 $$
-0
-=
-\frac{\partial H^k}{\partial u_k}
-=
-\left(\frac{\partial f^k}{\partial u_k}\right)^T\lambda_{k+1}
-+
-\frac{\partial L^k}{\partial u_k}
+0=\frac{\partial H^k}{\partial u_k}=\left(\frac{\partial f^k}{\partial u_k}\right)^T\lambda_{k+1}
++\frac{\partial L^k}{\partial u_k}
 $$
 
 This condition is used to determine the **optimal control** $u_k^*$.
