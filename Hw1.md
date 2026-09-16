@@ -526,7 +526,7 @@ $$
 Assume
 
 $$
-Q>0,\qquadR>0.
+Q>0,\qquad R>0.
 $$
 
 The Hamiltonian is
