@@ -31,12 +31,8 @@ The objective is to find the value of $u$ that minimizes $L(u)$.
 The increment in $L$ can be expressed using a Taylor series:
 
 $$
-dL
-=
-L_u^Tdu
-+
-\frac{1}{2}du^TL_{uu}du
-+
+dL=L_u^Tdu+
+\frac{1}{2}du^TL_{uu}du+
 O(3),
 $$
 
@@ -101,8 +97,7 @@ the critical point is a **local maximum**.
 Consider the quadratic performance index
 
 $$
-L(u)
-=
+L(u)=
 \frac{1}{2}u^TQu+S^Tu.
 $$
 
@@ -135,8 +130,7 @@ Therefore, the properties of $Q$ determine the type of critical point.
 For example,
 
 $$
-Q=
-\begin{bmatrix}
+Q=\begin{bmatrix}
 1&1\\
 1&2
 \end{bmatrix},
@@ -151,13 +145,8 @@ $$
 Then
 
 $$
-u^*
-=
--Q^{-1}S
-=
-\begin{bmatrix}
-1\\
--1
+u^*=-Q^{-1}S=
+\begin{bmatrix}1\\-1
 \end{bmatrix}.
 $$
 
@@ -172,9 +161,7 @@ the critical point is a **minimum**.
 The corresponding minimum value is
 
 $$
-L^*
-=
--\frac{1}{2}.
+L^*=-\frac{1}{2}.
 $$
 
 ![Contours and the gradient vector](./images/Fig1.1-1.png)
@@ -190,54 +177,39 @@ The same optimization problem can also be solved using scalar variables.
 Consider
 
 $$
-L(u_1,u_2)
-=
-\frac{1}{2}u_1^2
-+
+L(u_1,u_2)=
+\frac{1}{2}u_1^2+
 u_1u_2
 +
 u_2^2
-+
-u_2.
++u_2.
 $$
 
 At a critical point,
 
 $$
-\frac{\partial L}{\partial u_1}
-=
-u_1+u_2
-=
+\frac{\partial L}{\partial u_1}=u_1+u_2=
 0,
 $$
 
 and
 
 $$
-\frac{\partial L}{\partial u_2}
-=
-u_1+2u_2+1
-=
+\frac{\partial L}{\partial u_2}=u_1+2u_2+1=
 0.
 $$
 
 Solving the two equations gives
 
 $$
-u_1=1,
-\qquad
-u_2=-1.
+u_1=1,\qquadu_2=-1.
 $$
 
 Therefore,
 
 $$
-u^*
-=
-\begin{bmatrix}
-1\\
--1
-\end{bmatrix},
+u^*=\begin{bmatrix}
+1\\-1\end{bmatrix},
 $$
 
 which is the same result obtained using the vector formulation.
@@ -289,8 +261,7 @@ $$
 Then define the **Hamiltonian**
 
 $$
-H(x,u,\lambda)
-=
+H(x,u,\lambda)=
 L(x,u)+\lambda^Tf(x,u).
 $$
 
@@ -303,34 +274,23 @@ The equality constraint is now included inside the Hamiltonian.
 For a stationary point, the following conditions must hold:
 
 $$
-H_\lambda
-=
-\frac{\partial H}{\partial\lambda}
-=
-f(x,u)
-=
+H_\lambda=\frac{\partial H}{\partial\lambda}=f(x,u)=
 0,
 $$
 
 $$
-H_x
-=
-\frac{\partial H}{\partial x}
-=
-L_x+f_x^T\lambda
-=
+H_x=
+\frac{\partial H}{\partial x}=
+L_x+f_x^T\lambda=
 0,
 $$
 
 and
 
 $$
-H_u
-=
-\frac{\partial H}{\partial u}
-=
-L_u+f_u^T\lambda
-=
+H_u=
+\frac{\partial H}{\partial u}=
+L_u+f_u^T\lambda=
 0.
 $$
 
@@ -380,12 +340,9 @@ $$
 The constrained curvature matrix is
 
 $$
-L_{uu}^{f}
-=
-H_{uu}
--
-f_u^Tf_x^{-T}H_{xu}
--
+L_{uu}^{f}=
+H_{uu}-
+f_u^Tf_x^{-T}H_{xu}-
 H_{ux}f_x^{-1}f_u
 +
 f_u^Tf_x^{-T}H_{xx}f_x^{-1}f_u.
@@ -410,8 +367,7 @@ If it is indefinite, the stationary point is a saddle point.
 Consider
 
 $$
-L(x,u)
-=
+L(x,u)=
 \frac{1}{2}x^2+xu+u^2+u
 $$
 
@@ -424,16 +380,14 @@ $$
 Define the Hamiltonian
 
 $$
-H
-=
+H=
 L+\lambda f.
 $$
 
 Therefore,
 
 $$
-H
-=
+H=
 \frac{1}{2}x^2
 +
 xu
@@ -448,28 +402,20 @@ $$
 The necessary conditions are
 
 $$
-H_\lambda
-=
-x-3
-=
-0,
+H_\lambda=
+x-3=0,
 $$
 
 $$
-H_x
-=
-x+u+\lambda
-=
+H_x=
+x+u+\lambda=
 0,
 $$
 
 and
 
 $$
-H_u
-=
-x+2u+1
-=
+H_u=x+2u+1=
 0.
 $$
 
@@ -524,8 +470,7 @@ $$
 The stationary point is
 
 $$
-(x,u)^*
-=
+(x,u)^*=
 (3,-2).
 $$
 
@@ -562,8 +507,7 @@ Therefore, the constraint line is tangent to a contour of $L$ at the optimal poi
 Consider the quadratic performance index
 
 $$
-L(x,u)
-=
+L(x,u)=
 \frac{1}{2}x^TQx
 +
 \frac{1}{2}u^TRu
@@ -572,10 +516,8 @@ $$
 with the linear constraint
 
 $$
-f(x,u)
-=
-x+Bu+c
-=
+f(x,u)=
+x+Bu+=
 0.
 $$
 
@@ -590,8 +532,7 @@ $$
 The Hamiltonian is
 
 $$
-H
-=
+H=
 \frac{1}{2}x^TQx
 +
 \frac{1}{2}u^TRu
@@ -602,28 +543,22 @@ $$
 The necessary conditions are
 
 $$
-H_\lambda
-=
-x+Bu+c
-=
+H_\lambda=
+x+Bu+c=
 0,
 $$
 
 $$
-H_x
-=
-Qx+\lambda
-=
+H_x=
+Qx+\lambda=
 0,
 $$
 
 and
 
 $$
-H_u
-=
-Ru+B^T\lambda
-=
+H_u=
+Ru+B^T\lambda=
 0.
 $$
 
@@ -652,8 +587,7 @@ $$
 The constrained curvature matrix becomes
 
 $$
-L_{uu}^{f}
-=
+L_{uu}^{f}=
 R+B^TQB.
 $$
 
@@ -714,24 +648,21 @@ $$
 3. Determine the Lagrange multiplier
 
 $$
-\lambda
-=
+\lambda=
 -f_x^{-T}L_x.
 $$
 
 4. Calculate the gradient
 
 $$
-H_u
-=
+H_u=
 L_u+f_u^T\lambda.
 $$
 
 5. Update the control in the negative-gradient direction:
 
 $$
-\Delta u
-=
+\Delta u=
 -\alpha H_u,
 $$
 
