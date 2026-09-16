@@ -516,58 +516,42 @@ $$
 with the linear constraint
 
 $$
-f(x,u)=
-x+Bu+=
-0.
+f(x,u)=x+Bu+=0.
 $$
 
 Assume
 
 $$
-Q>0,
-\qquad
-R>0.
+Q>0,\qquadR>0.
 $$
 
 The Hamiltonian is
 
 $$
-H=
-\frac{1}{2}x^TQx
-+
-\frac{1}{2}u^TRu
-+
-\lambda^T(x+Bu+c).
+H=\frac{1}{2}x^TQx+\frac{1}{2}u^TRu+\lambda^T(x+Bu+c).
 $$
 
 The necessary conditions are
 
 $$
-H_\lambda=
-x+Bu+c=
-0,
+H_\lambda=x+Bu+c=0,
 $$
 
 $$
-H_x=
-Qx+\lambda=
-0,
+H_x=Qx+\lambda=0,
 $$
 
 and
 
 $$
-H_u=
-Ru+B^T\lambda=
+H_u=Ru+B^T\lambda=
 0.
 $$
 
 From the stationarity condition,
 
 $$
-u
-=
--R^{-1}B^T\lambda.
+u=-R^{-1}B^T\lambda.
 $$
 
 Also,
@@ -579,8 +563,7 @@ $$
 Combining the equations gives the optimal control
 
 $$
-u^*
-=
+u^*=
 -(R+B^TQB)^{-1}B^TQc.
 $$
 
@@ -610,8 +593,7 @@ The Lagrange multiplier also gives information about how the optimal value chang
 At an optimal point,
 
 $$
-\frac{\partial L^*}{\partial f}
-=
+\frac{\partial L^*}{\partial f}=
 -\lambda.
 $$
 
@@ -648,8 +630,7 @@ $$
 3. Determine the Lagrange multiplier
 
 $$
-\lambda=
--f_x^{-T}L_x.
+\lambda=-f_x^{-T}L_x.
 $$
 
 4. Calculate the gradient
