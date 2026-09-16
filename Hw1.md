@@ -1,53 +1,124 @@
 # System Theory Markdown HW1
-------
 
-## **Chapter1**
-### **1.1 Optimization without Constraints**
+---
 
-* A **scalar performance index** $L(u)$ is a function of a **control or decision vector**
+# Chapter 1 - Static Optimization
 
-$$
-u \in \mathbb{R}^m
-$$
+Chapter 1 introduces **static optimization**, where time is not considered as a parameter.
 
-The objective is to determine the value of $u$ that minimizes $L(u)$.
+The main idea is to determine a control or decision variable that minimizes a given performance index.
 
-* Using the **Taylor series expansion** for an increment in $L$:
+---
 
-$$
-dL = L_u^Tdu + \frac{1}{2}du^T L_{uu}du + O(3)
-$$
+## 1.1 Optimization without Constraints
 
-where $O(3)$ represents terms of order three and higher.
-
-* **Gradient**
+A **scalar performance index**
 
 $$
-L_u \triangleq \frac{\partial L}{\partial u}
+L(u)
 $$
 
-* **Hessian matrix (curvature matrix)**
+is given as a function of a **control or decision vector**
 
 $$
-L_{uu} \triangleq \frac{\partial^2L}{\partial u^2}
+u \in \mathbb{R}^m.
 $$
 
-----
-### **Example 1.1-1. Quadractic Surfaces**
+The objective is to find the value of $u$ that minimizes $L(u)$.
 
-For the quadratic performance index
+### Taylor Series Expansion
 
-$$
-L(u)=\frac{1}{2}u^TQu+S^Tu
-$$
-
-the critical point is obtained from
+The increment in $L$ can be expressed using a Taylor series:
 
 $$
-L_u=Qu+S=0
+dL
+=
+L_u^Tdu
++
+\frac{1}{2}du^TL_{uu}du
++
+O(3),
 $$
 
-so
+where $O(3)$ represents third-order and higher-order terms.
+
+The **gradient** of $L$ is
+
+$$
+L_u
+\triangleq
+\frac{\partial L}{\partial u}.
+$$
+
+The **Hessian matrix**, also called the **curvature matrix**, is
+
+$$
+L_{uu}
+\triangleq
+\frac{\partial^2L}{\partial u^2}.
+$$
+
+In this textbook, the gradient is defined as a **column vector**.
+
+---
+
+### Critical Point
+
+At a critical or stationary point, the first-order change in $L$ must be zero for any small change $du$.
+
+Therefore,
+
+$$
+L_u=0.
+$$
+
+After finding a critical point, the Hessian is used to determine its type.
+
+- If
+
+$$
+L_{uu}>0,
+$$
+
+the critical point is a **local minimum**.
+
+- If
+
+$$
+L_{uu}<0,
+$$
+
+the critical point is a **local maximum**.
+
+- If $L_{uu}$ is **indefinite**, the critical point is a **saddle point**.
+
+- If $L_{uu}$ is **semidefinite**, higher-order terms must be examined.
+
+---
+
+### Example 1.1-1 - Quadratic Surfaces
+
+Consider the quadratic performance index
+
+$$
+L(u)
+=
+\frac{1}{2}u^TQu+S^Tu.
+$$
+
+The gradient is
+
+$$
+L_u=Qu+S.
+$$
+
+At the critical point,
+
+$$
+Qu+S=0,
+$$
+
+so the optimal control is
 
 $$
 u^*=-Q^{-1}S.
@@ -56,12 +127,12 @@ $$
 The Hessian is
 
 $$
-L_{uu}=Q,
+L_{uu}=Q.
 $$
 
-which determines the type of critical point.
+Therefore, the properties of $Q$ determine the type of critical point.
 
-For
+For example,
 
 $$
 Q=
@@ -74,195 +145,649 @@ S=
 \begin{bmatrix}
 0\\
 1
+\end{bmatrix}.
+$$
+
+Then
+
+$$
+u^*
+=
+-Q^{-1}S
+=
+\begin{bmatrix}
+1\\
+-1
+\end{bmatrix}.
+$$
+
+Since
+
+$$
+Q>0,
+$$
+
+the critical point is a **minimum**.
+
+The corresponding minimum value is
+
+$$
+L^*
+=
+-\frac{1}{2}.
+$$
+
+![Contours and the gradient vector](./images/Fig1.1-1.png)
+
+> The gradient is perpendicular to the contour lines and points in the direction in which $L(u)$ increases.
+
+---
+
+### Example 1.1-2 - Optimization by Scalar Manipulations
+
+The same optimization problem can also be solved using scalar variables.
+
+Consider
+
+$$
+L(u_1,u_2)
+=
+\frac{1}{2}u_1^2
++
+u_1u_2
++
+u_2^2
++
+u_2.
+$$
+
+At a critical point,
+
+$$
+\frac{\partial L}{\partial u_1}
+=
+u_1+u_2
+=
+0,
+$$
+
+and
+
+$$
+\frac{\partial L}{\partial u_2}
+=
+u_1+2u_2+1
+=
+0.
+$$
+
+Solving the two equations gives
+
+$$
+u_1=1,
+\qquad
+u_2=-1.
+$$
+
+Therefore,
+
+$$
+u^*
+=
+\begin{bmatrix}
+1\\
+-1
 \end{bmatrix},
+$$
+
+which is the same result obtained using the vector formulation.
+
+The vector form is useful because it simplifies calculations for higher-dimensional systems.
+
+---
+
+## 1.2 Optimization with Equality Constraints
+
+Now consider a scalar performance index
+
+$$
+L(x,u),
+$$
+
+where
+
+$$
+x\in\mathbb{R}^n
+$$
+
+is an auxiliary or **state vector**, and
+
+$$
+u\in\mathbb{R}^m
+$$
+
+is the **control vector**.
+
+The goal is to minimize $L(x,u)$ while satisfying the equality constraint
+
+$$
+f(x,u)=0.
+$$
+
+Because of this constraint, $x$ and $u$ cannot be varied independently.
+
+---
+
+### Lagrange Multiplier
+
+Introduce the **Lagrange multiplier**
+
+$$
+\lambda\in\mathbb{R}^n.
+$$
+
+Then define the **Hamiltonian**
+
+$$
+H(x,u,\lambda)
+=
+L(x,u)+\lambda^Tf(x,u).
+$$
+
+The equality constraint is now included inside the Hamiltonian.
+
+---
+
+### Necessary Conditions
+
+For a stationary point, the following conditions must hold:
+
+$$
+H_\lambda
+=
+\frac{\partial H}{\partial\lambda}
+=
+f(x,u)
+=
+0,
+$$
+
+$$
+H_x
+=
+\frac{\partial H}{\partial x}
+=
+L_x+f_x^T\lambda
+=
+0,
+$$
+
+and
+
+$$
+H_u
+=
+\frac{\partial H}{\partial u}
+=
+L_u+f_u^T\lambda
+=
+0.
+$$
+
+These equations are normally used to determine
+
+$$
+x,\qquad \lambda,\qquad u.
+$$
+
+Although $\lambda$ is usually not the final quantity we are interested in, it acts as an intermediate variable that helps us determine the optimal $x$ and $u$.
+
+---
+
+### Why Introduce the Lagrange Multiplier?
+
+Without the Lagrange multiplier, the variations $dx$ and $du$ are related through the constraint
+
+$$
+f(x,u)=0.
+$$
+
+Introducing $\lambda$ gives an additional degree of freedom.
+
+As a result, the constrained optimization problem
+
+$$
+\min L(x,u)
+\qquad
+\text{subject to }
+f(x,u)=0
+$$
+
+can be studied using the stationary conditions of the Hamiltonian.
+
+---
+
+### Sufficient Condition
+
+The necessary conditions only identify a **stationary point**.
+
+To guarantee that this point is a constrained minimum, the constrained curvature matrix must be positive definite:
+
+$$
+L_{uu}^{f}>0.
+$$
+
+The constrained curvature matrix is
+
+$$
+L_{uu}^{f}
+=
+H_{uu}
+-
+f_u^Tf_x^{-T}H_{xu}
+-
+H_{ux}f_x^{-1}f_u
++
+f_u^Tf_x^{-T}H_{xx}f_x^{-1}f_u.
+$$
+
+If
+
+$$
+L_{uu}^{f}>0,
+$$
+
+the stationary point is a **constrained minimum**.
+
+If it is negative definite, the stationary point is a constrained maximum.
+
+If it is indefinite, the stationary point is a saddle point.
+
+---
+
+### Example 1.2-1 - Quadratic Surface with Linear Constraint
+
+Consider
+
+$$
+L(x,u)
+=
+\frac{1}{2}x^2+xu+u^2+u
+$$
+
+with the equality constraint
+
+$$
+f(x,u)=x-3=0.
+$$
+
+Define the Hamiltonian
+
+$$
+H
+=
+L+\lambda f.
+$$
+
+Therefore,
+
+$$
+H
+=
+\frac{1}{2}x^2
++
+xu
++
+u^2
++
+u
++
+\lambda(x-3).
+$$
+
+The necessary conditions are
+
+$$
+H_\lambda
+=
+x-3
+=
+0,
+$$
+
+$$
+H_x
+=
+x+u+\lambda
+=
+0,
+$$
+
+and
+
+$$
+H_u
+=
+x+2u+1
+=
+0.
+$$
+
+From
+
+$$
+x-3=0,
 $$
 
 we obtain
 
 $$
-u^*=
-\begin{bmatrix}
-1\\
--1
-\end{bmatrix},
-\qquad
-L^*=-\frac{1}{2}.
+x=3.
 $$
 
-Since $Q>0$, $u^*$ is a **minimum**.
-
-![Contours and the gradient vector](./images/Fig1.1-1.png)
-
-> The gradient is perpendicular to the contours and points in the direction of increasing $L(u)$.
-### **1.2 Optimization with Equality Constraints**
-
-* A **scalar performance index** $L(x,u)$ is a function of a **control vector** $u \in \mathbb{R}^m$ and an **auxiliary (state) vector** $x \in \mathbb{R}^n$.
-
-    The objective is to minimize $L(x,u)$ while satisfying the **equality constraint**
+Substituting into
 
 $$
-f(x,u)=0
+x+2u+1=0
 $$
 
-* Introduce the **Lagrange multiplier** $\lambda$ and define the **Hamiltonian function**
+gives
 
 $$
-H(x,u,\lambda)=L(x,u)+\lambda^T f(x,u)
+3+2u+1=0,
 $$
 
-* **Necessary conditions** for a stationary point:
+so
 
 $$
-H_\lambda=\frac{\partial H}{\partial \lambda}=f(x,u)=0
+u=-2.
 $$
 
-$$
-H_x=\frac{\partial H}{\partial x}
-=L_x+f_x^T\lambda=0
-$$
+Finally,
 
 $$
-H_u=\frac{\partial H}{\partial u}
-=L_u+f_u^T\lambda=0
+x+u+\lambda=0
 $$
 
-These equations are used to determine $x$, $\lambda$, and $u$.
-
-* **Sufficient condition**
-
-  The necessary conditions only determine a stationary point.  
-For a constrained minimum, the **curvature matrix with $f$ equal to zero is positive definite.
-------
-### **Example 1.2-1. Quadratic Surface with Linear Constraint**
-
-* The performance index and **equality constraint** are
+gives
 
 $$
-L(x,u)=\frac{1}{2}x^2+xu+u^2+u
+3-2+\lambda=0,
 $$
 
-$$
-f(x,u)=x-3=0
-$$
-
-* Define the **Hamiltonian**
+therefore
 
 $$
-H=L+\lambda f
-=\frac{1}{2}x^2+xu+u^2+u+\lambda(x-3)
+\lambda=-1.
 $$
 
-* **Necessary conditions**
+The stationary point is
 
 $$
-H_\lambda=x-3=0
+(x,u)^*
+=
+(3,-2).
 $$
 
-$$
-H_x=x+u+\lambda=0
-$$
+The constrained curvature is
 
 $$
-H_u=x+2u+1=0
+L_{uu}^{f}=2>0.
 $$
 
-Solving these equations gives
-
-$$
-x=3,\qquad u=-2,\qquad \lambda=-1
-$$
-
-Therefore, the constrained stationary point is
+Therefore,
 
 $$
 (x,u)^*=(3,-2)
 $$
 
-and the constrained curvature is
+is a **constrained minimum**.
+
+The minimum value of the performance index is
 
 $$
-L_{uu}^{f}=2>0
+L^*=0.5.
 $$
-
-so $(3,-2)$ is a **constrained minimum**.
 
 ![Contours of L and the constraint](./images/Fig1.2-1.png)
 
-* At the constrained minimum, the gradients of $L$ and $f$ are **parallel**, and the constraint is **tangent to a contour of $L$**.
+At the constrained minimum, the gradients of $L$ and $f$ are parallel.
 
----------
+Therefore, the constraint line is tangent to a contour of $L$ at the optimal point.
 
-## **Chapter2**
-### **2.1 Solution of the General Discrete-Time Optimization Problem**
+---
 
-* The nonlinear **discrete-time system** is
+### Example 1.2-2 - Quadratic Performance Index with Linear Constraint
 
-$$
-x_{k+1}=f^k(x_k,u_k)
-$$
-
-where $x_k$ is the **state vector** and $u_k$ is the **control vector**.
-
-* The **performance index** over the time interval $[i,N]$ is
+Consider the quadratic performance index
 
 $$
-J_i=\phi(N,x_N)+\sum_{k=i}^{N-1}L^k(x_k,u_k)
+L(x,u)
+=
+\frac{1}{2}x^TQx
++
+\frac{1}{2}u^TRu
 $$
 
-where $\phi(N,x_N)$ is the **terminal cost** and $L^k(x_k,u_k)$ is the **cost at each time step**.
-
-The objective is to find the control sequence $u_k^*$ that minimizes $J_i$ while satisfying the system dynamics.
-
-* Introduce the **Lagrange multiplier (costate)** $\lambda_{k+1}$ and define the **Hamiltonian**
-
+with the linear constraint
 
 $$
-H^k(x_k,u_k)=L^k(x_k,u_k)+\lambda_{k+1}^T f^k(x_k,u_k)
+f(x,u)
+=
+x+Bu+c
+=
+0.
 $$
 
-* **State equation**
+Assume
 
 $$
-x_{k+1}=\frac{\partial H^k}{\partial \lambda_{k+1}}=f^k(x_k,u_k)
+Q>0,
+\qquad
+R>0.
 $$
 
-The state equation develops **forward in time**.
-
-* **Costate equation**
+The Hamiltonian is
 
 $$
-\lambda_k=\frac{\partial H^k}{\partial x_k}=
-\left(\frac{\partial f^k}{\partial x_k}\right)^T\lambda_{k+1}+
-\frac{\partial L^k}{\partial x_k}
+H
+=
+\frac{1}{2}x^TQx
++
+\frac{1}{2}u^TRu
++
+\lambda^T(x+Bu+c).
 $$
 
-The costate equation develops **backward in time**.
-
-* **Stationarity condition**
+The necessary conditions are
 
 $$
-0=\frac{\partial H^k}{\partial u_k}=\left(\frac{\partial f^k}{\partial u_k}\right)^T\lambda_{k+1}
-+\frac{\partial L^k}{\partial u_k}
+H_\lambda
+=
+x+Bu+c
+=
+0,
 $$
 
-This condition is used to determine the **optimal control** $u_k^*$.
-
-* **Boundary conditions**
-
-For a **fixed initial state**,
-
 $$
-x_i=\text{given}
+H_x
+=
+Qx+\lambda
+=
+0,
 $$
 
-For a **fixed final state**,
+and
 
 $$
-x_N=\text{given}
+H_u
+=
+Ru+B^T\lambda
+=
+0.
 $$
 
-For a **free final state**,
+From the stationarity condition,
 
 $$
-\lambda_N=\frac{\partial\phi}{\partial x_N}
+u
+=
+-R^{-1}B^T\lambda.
 $$
+
+Also,
+
+$$
+\lambda=-Qx.
+$$
+
+Combining the equations gives the optimal control
+
+$$
+u^*
+=
+-(R+B^TQB)^{-1}B^TQc.
+$$
+
+The constrained curvature matrix becomes
+
+$$
+L_{uu}^{f}
+=
+R+B^TQB.
+$$
+
+Since $Q>0$ and $R>0$,
+
+$$
+L_{uu}^{f}>0,
+$$
+
+so the solution corresponds to a constrained minimum.
+
+This **linear quadratic (LQ)** optimization problem is important because it will later be extended to time-varying control systems.
+
+---
+
+### Effect of Changes in Constraints
+
+The Lagrange multiplier also gives information about how the optimal value changes when the constraint changes.
+
+At an optimal point,
+
+$$
+\frac{\partial L^*}{\partial f}
+=
+-\lambda.
+$$
+
+Therefore, $\lambda$ can be interpreted as a measure of the sensitivity of the optimal performance index to the constraint.
+
+A large magnitude of $\lambda$ means that a small change in the constraint can produce a relatively large change in the optimal value.
+
+---
+
+## 1.3 Numerical Solution Methods
+
+For simple functions $L(x,u)$ and $f(x,u)$, the stationary point may be found analytically.
+
+However, for most practical problems, an analytical solution is difficult or impossible.
+
+Therefore, numerical optimization methods are required.
+
+One of the simplest methods is the **steepest descent method**.
+
+---
+
+### Steepest Descent Method
+
+For constrained minimization, the basic procedure is:
+
+1. Select an initial value of the control $u$.
+
+2. Determine $x$ from
+
+$$
+f(x,u)=0.
+$$
+
+3. Determine the Lagrange multiplier
+
+$$
+\lambda
+=
+-f_x^{-T}L_x.
+$$
+
+4. Calculate the gradient
+
+$$
+H_u
+=
+L_u+f_u^T\lambda.
+$$
+
+5. Update the control in the negative-gradient direction:
+
+$$
+\Delta u
+=
+-\alpha H_u,
+$$
+
+where
+
+$$
+\alpha>0
+$$
+
+is the step size.
+
+6. Estimate the change in the performance index.
+
+If the change is sufficiently small, stop. Otherwise, repeat the procedure.
+
+---
+
+### Step Size
+
+The choice of step size $\alpha$ is important.
+
+If $\alpha$ is too large, the optimization may overshoot the stationary point and fail to converge.
+
+Therefore, the step size is usually reduced as the solution approaches the optimum.
+
+---
+
+# Summary
+
+The main ideas of Chapter 1 are:
+
+- A performance index $L$ is used to measure how good a solution is.
+- A stationary point satisfies
+
+$$
+L_u=0.
+$$
+
+- The Hessian determines the local curvature and helps classify the stationary point.
+- Equality constraints are handled using Lagrange multipliers.
+- The Hamiltonian is defined as
+
+$$
+H=L+\lambda^Tf.
+$$
+
+- A constrained stationary point satisfies
+
+$$
+H_\lambda=0,
+\qquad
+H_x=0,
+\qquad
+H_u=0.
+$$
+
+- The constrained curvature matrix can be used to determine whether the stationary point is a minimum.
+- The Lagrange multiplier also represents the sensitivity of the optimal value to changes in the constraint.
+- For complicated optimization problems, numerical methods such as steepest descent are required.
