@@ -146,7 +146,9 @@ Then
 
 $$
 u^*=-Q^{-1}S=
-\begin{bmatrix}1\\-1
+\begin{bmatrix}
+1 \\
+-1
 \end{bmatrix}.
 $$
 
@@ -202,14 +204,16 @@ $$
 Solving the two equations gives
 
 $$
-u_1=1,\qquadu_2=-1.
+u_1=1,\qquad u_2=-1.
 $$
 
 Therefore,
 
 $$
 u^*=\begin{bmatrix}
-1\\-1\end{bmatrix},
+1 \\
+-1
+\end{bmatrix},
 $$
 
 which is the same result obtained using the vector formulation.
